@@ -3,7 +3,7 @@ import { useState } from "react";
 const styles = {
   page: {
     minHeight: "100vh",
-    background: "#0f0f0f",
+    background: "#d11313",
     fontFamily: "'Georgia', serif",
     color: "#e8e8e8",
     padding: "6rem 2rem",
@@ -136,7 +136,12 @@ const styles = {
 };
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", service: "", message: "" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    service: "",
+    message: "",
+  });
   const [submitted, setSubmitted] = useState(false);
 
   const handle = (e) => setForm({ ...form, [e.target.name]: e.target.value });
@@ -175,7 +180,9 @@ export default function Contact() {
         <div>
           {submitted ? (
             <div style={styles.successBox}>
-              <div style={{ fontSize: "1.5rem", marginBottom: "0.8rem" }}>✓</div>
+              <div style={{ fontSize: "1.5rem", marginBottom: "0.8rem" }}>
+                ✓
+              </div>
               <div style={styles.successText}>
                 Message received. We'll be in touch shortly.
               </div>
@@ -207,7 +214,12 @@ export default function Contact() {
               </div>
               <div style={styles.formGroup}>
                 <label style={styles.label}>Service Interested In</label>
-                <select style={styles.select} name="service" value={form.service} onChange={handle}>
+                <select
+                  style={styles.select}
+                  name="service"
+                  value={form.service}
+                  onChange={handle}
+                >
                   <option value="">Select a service…</option>
                   <option>Brand Strategy</option>
                   <option>UI/UX Design</option>
@@ -227,7 +239,9 @@ export default function Contact() {
                   required
                 />
               </div>
-              <button type="submit" style={styles.btn}>Send Message</button>
+              <button type="submit" style={styles.btn}>
+                Send Message
+              </button>
             </form>
           )}
         </div>
