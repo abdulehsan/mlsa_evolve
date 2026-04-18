@@ -120,10 +120,22 @@ const team = [
 ];
 
 const values = [
-  { title: "Craft", text: "Every pixel, every line of code is deliberate. We don't ship mediocrity." },
-  { title: "Clarity", text: "Complex problems deserve simple, elegant solutions." },
-  { title: "Candor", text: "Honest partnerships. No fluff, no jargon — just results." },
-  { title: "Curiosity", text: "We stay at the edge of what's possible, always learning." },
+  {
+    title: "Craft",
+    text: "Every pixel, every line of code is deliberate. We don't ship mediocrity.",
+  },
+  {
+    title: "Clarity",
+    text: "Complex problems deserve simple, elegant solutions.",
+  },
+  {
+    title: "Candor",
+    text: "Honest partnerships. No fluff, no jargon — just results.",
+  },
+  {
+    title: "Curiosity",
+    text: "We stay at the edge of what's possible, always learning.",
+  },
 ];
 
 export default function About() {
@@ -132,12 +144,14 @@ export default function About() {
       <div style={styles.inner}>
         <span style={styles.eyebrow}>Our Story</span>
         <h1 style={styles.heading}>
-          Built by People Who <br />Give a Damn
+          Built by People Who <br />
+          Give a Damn
         </h1>
         <div style={styles.divider} />
         <p style={styles.lead}>
-          We started as a two-person freelance duo in 2016. Today we're a boutique
-          studio of 12 — still small enough to care deeply about every client.
+          We started as a two-person freelance duo in 2016. Today we're a
+          boutique studio of 12 — still small enough to care deeply about every
+          client.
         </p>
         <p style={styles.body}>
           Our work sits at the intersection of design and engineering. We don't
@@ -152,8 +166,10 @@ export default function About() {
 
         {/* Team */}
         <div style={styles.teamSection}>
-          <span style={styles.eyebrow}>The Team</span>
-          <h2 style={{ ...styles.heading, fontSize: "2rem" }}>Faces Behind the Work</h2>
+          <span style={styles.eyebrow}>The Group</span>
+          <h2 style={{ ...styles.heading, fontSize: "2rem" }}>
+            Faces Behind the Work
+          </h2>
           <div style={styles.teamGrid}>
             {team.map((m) => (
               <div key={m.name} style={styles.card}>
