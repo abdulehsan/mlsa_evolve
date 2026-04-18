@@ -1,0 +1,81 @@
+name: Label PR On Push
+
+on:
+  push:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  add-push-label:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Ensure push label exists
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const label = {
+              name: 'pushed',
+              color: 'fbca04',
+              description: 'PR received new pushed commits'
+            };
+
+            try {
+              await github.rest.issues.getLabel({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                name: label.name
+              });
+            } catch (error) {
+              if (error.status === 404) {
+                await github.rest.issues.createLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  ...label
+                });
+              } else {
+                throw error;
+              }
+            }
+
+      - name: Add label to related open PRs
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const commits = context.payload.commits || [];
+            const prNumbers = new Set();
+
+            for (const commit of commits) {
+              const sha = commit.id;
+              const { data: prs } = await github.rest.repos.listPullRequestsAssociatedWithCommit({
+                owner,
+                repo,
+                commit_sha: sha
+              });
+
+              for (const pr of prs) {
+                if (pr.state === 'open') {
+                  prNumbers.add(pr.number);
+                }
+              }
+            }
+
+            if (prNumbers.size === 0) {
+              core.info('No open PRs are associated with this push.');
+              return;
+            }
+
+            for (const issue_number of prNumbers) {
+              await github.rest.issues.addLabels({
+                owner,
+                repo,
+                issue_number,
+                labels: ['pushed']
+              });
+
+              core.info(`Added label "pushed" to PR #${issue_number}`);
+            }
